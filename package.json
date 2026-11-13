@@ -1,0 +1,37 @@
+{
+    "name": "clinicflow-api",
+    "version": "1.0.0",
+    "description": "API de Agendamento e Triagem Clínica - Projeto Final (Nível B)",
+    "main": "dist/server.js",
+    "scripts": {
+        "dev": "tsx watch src/server.ts",
+        "build": "tsc",
+        "start": "node dist/server.js",
+        "lint": "eslint src tests --ext .ts",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "express": "^4.21.1",
+        "pino": "^9.5.0",
+        "pino-http": "^10.3.0",
+        "prom-client": "^15.1.3",
+        "uuid": "^11.0.2",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.9.0",
+        "@types/supertest": "^6.0.2",
+        "@types/uuid": "^10.0.0",
+        "@typescript-eslint/eslint-plugin": "^8.13.0",
+        "@typescript-eslint/parser": "^8.13.0",
+        "@vitest/coverage-v8": "^2.1.4",
+        "eslint": "^8.57.1",
+        "supertest": "^7.0.0",
+        "tsx": "^4.19.2",
+        "typescript": "^5.6.3",
+        "vitest": "^2.1.4"
+    }
+}

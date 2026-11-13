@@ -1,0 +1,17 @@
+services:
+  clinicflow-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "clinicflow-api"
+    ports:
+    - "${PORT:-3000}:3000"
+    environment:
+    - PORT=3000
+    - NODE_ENV=production
+    - LOG_LEVEL=${LOG_LEVEL:-info}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
