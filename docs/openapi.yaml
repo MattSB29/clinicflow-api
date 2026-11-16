@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: ClinicFlow API
+  description: API para gerenciamento de agendamentos clínicos e triagem de prioridades.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Ambiente Local / Docker
+
+tags:
+  - name: Agendamentos
+    description: Operações de criação e listagem de consultas médicas
+  - name: Observabilidade
+    description: Endpoints de monitoramento, saúde e métricas Prometheus
+
+paths:
+  /health:
+    get:
+      summary: Verifica a saúde da aplicação
+      tags:
+        - Observabilidade
+      responses:
+        '200':
+          description: Aplicação operacional
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: UP
+                  timestamp:
+                    type: string
+                    format: date-time
+
+  /metrics:
+    get:
+      summary: Expõe métricas no formato Prometheus
+      tags:
+        - Observabilidade
+      responses:
+        '200':
+          description: Métricas coletadas pelo prom-client
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  # HELP clinicflow_http_requests_total Total de requisições HTTP recebidas na ClinicFlow API
+                  # TYPE clinicflow_http_requests_total counter
+                  clinicflow_http_requests_total{method="GET",route="/health",status_code="200"} 1
+
+  /appointments:
+    get:
+      summary: Lista todos os agendamentos
+      tags:
+        - Agendamentos
+      responses:
+        '200':
+          description: Lista de agendamentos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+    post:
+      summary: Cria um novo agendamento com cálculo de prioridade de triagem
+      tags:
+        - Agendamentos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAppointmentInput'
+      responses:
+        '201':
+          description: Agendamento criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          description: Dados inválidos na requisição
+
+components:
+  schemas:
+    CreateAppointmentInput:
+      type: object
+      required:
+        - patientName
+        - specialty
+        - date
+      properties:
+        patientName:
+          type: string
+          example: Maria Silva
+        specialty:
+          type: string
+          example: Cardiologia
+        priority:
+          type: string
+          enum: [low, normal, urgent]
+          example: urgent
+        date:
+          type: string
+          format: date-time
+          example: 2026-11-20T14:30:00Z
+
+    Appointment:
+      allOf:
+        - $ref: '#/components/schemas/CreateAppointmentInput'
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              example: 550e8400-e29b-41d4-a716-446655440000
+    
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Dados obrigatórios ausentes ou inválidos.
