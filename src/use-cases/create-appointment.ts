@@ -1,5 +1,6 @@
 import { IAppointmentRepository } from '../repositories/IAppointmentRepository';
 import { Appointment } from '../models/Appointment';
+import { logger } from '../utils/logger';
 
 interface CreateAppointmentRequest {
   patientName: string;
@@ -21,6 +22,12 @@ export class CreateAppointmentUseCase {
     };
 
     await this.appointmentsRepository.save(appointment);
+
+    logger.info(
+      { appointmentId: appointment.id, status: appointment.status },
+      'Agendamento persistido com sucesso pelo UseCase'
+    );
+
     return appointment;
   }
 }
