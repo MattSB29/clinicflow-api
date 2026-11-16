@@ -1,4 +1,3 @@
-// test/integration/create-appointment-integration.spec.ts
 import { beforeEach, describe, expect, it } from 'vitest';
 import { InMemoryAppointmentRepository } from '../../src/repositories/InMemoryAppointmentRepository';
 import { CreateAppointmentUseCase } from '../../src/use-cases/create-appointment';
