@@ -21,4 +21,5 @@ Para garantir uma experiência responsiva e estável aos sistemas consumidores, 
 ## 4. Como Reproduzir
 Com a API em execução (`docker compose up`), execute na raiz do projeto:
 ```bash
-k6 run load-test.js
+k6 run k6/smoke-test.js
+```

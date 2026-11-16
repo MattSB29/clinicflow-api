@@ -71,7 +71,7 @@ npm run test:coverage
 ### Testes de Carga / Smoke Test
 ```bash
 # Com a API em execução na porta 3000:
-k6 run load-test.js
+k6 run k6/smoke-test.js
 ```
 
 ---
