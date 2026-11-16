@@ -1,7 +1,5 @@
-// test/domain/appointment-priority.spec.ts
 import { describe, expect, it } from 'vitest';
 
-// Regra de domínio pura
 function classifyPatientPriority(score: number): 'URGENT' | 'NORMAL' | 'LOW' {
   if (score >= 8) return 'URGENT';
   if (score >= 4) return 'NORMAL';

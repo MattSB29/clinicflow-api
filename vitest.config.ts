@@ -26,6 +26,9 @@ export default defineConfig({
         'src/repositories/**/*.ts', // Interfaces e contratos de repositório
         '**/*.d.ts',
         'vitest.config.ts',
+        'k6/**',
+        'src/utils/*.ts',
+        'tests/**',
       ],
     }
   },

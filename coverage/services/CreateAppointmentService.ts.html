@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for tests/domain/appointment.spec.ts</title>
+    <title>Code coverage report for services/CreateAppointmentService.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">tests/domain</a> appointment.spec.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">services</a> CreateAppointmentService.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/31</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/31</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -100,22 +100,18 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -132,71 +128,69 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { describe, expect, it } from 'vitest';
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { Appointment } from '../models/Appointment';
+import { IAppointmentRepository } from '../repositories/IAppointmentRepository';
+import { ITriageStrategy } from './TriagePriorityStrategy';
+import { logger } from '../utils/logger';
 &nbsp;
-function validateAppointmentPriority(priorityScore: number): boolean {
-  return priorityScore &gt;= 1 &amp;&amp; priorityScore &lt;= 10;
+interface RequestDTO {
+  patientName: string;
+  symptoms: string;
 }
 &nbsp;
-describe('Appointment Domain Rules', () =&gt; {
-  it('should allow valid priority scores between 1 and 10', () =&gt; {
-    const validScore = 8;
-    const isValid = validateAppointmentPriority(validScore);
+export class CreateAppointmentService {
+  constructor(
+    private appointmentRepository: IAppointmentRepository,
+    private triageStrategy: ITriageStrategy
+  ) {}
 &nbsp;
-    expect(isValid).toBe(true);
-  });
+  async execute({ patientName, symptoms }: RequestDTO): Promise&lt;Appointment&gt; {
+    const priorityScore = this.triageStrategy.calculateScore(symptoms);
 &nbsp;
-  it('should reject invalid priority scores out of range', () =&gt; {
-    const invalidScore = 15;
-    const isValid = validateAppointmentPriority(invalidScore);
-&nbsp;
-    expect(isValid).toBe(false);
-  });
-&nbsp;
-  it('should initialize a new appointment with PENDING status by default', () =&gt; {
-    const appointmentData = {
-      id: 'app-1',
-      patientName: 'Carlos Silva',
-      symptoms: 'Dor no peito',
-      priorityScore: 9,
+    const appointment: Appointment = {
+      id: Math.random().toString(36).substring(2, 9),
+      patientName,
+      symptoms,
+      priorityScore,
+      status: 'TRIAGED',
       createdAt: new Date(),
     };
 &nbsp;
-    // Aplicando a regra padrão de domínio
-    const appointment = {
-      ...appointmentData,
-      status: 'PENDING' as const,
-    };
+    const savedAppointment = await this.appointmentRepository.save(appointment);
 &nbsp;
-    expect(appointment.status).toBe('PENDING');
-    expect(appointment.priorityScore).toBeGreaterThan(5);
-  });
-});</pre></td></tr></table></pre>
+    logger.info(
+      { appointmentId: savedAppointment.id, priorityScore },
+      'Novo agendamento criado e triado com sucesso'
+    );
+&nbsp;
+    return savedAppointment;
+  }
+}</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T19:02:32.741Z
+                at 2026-11-16T01:19:57.596Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     

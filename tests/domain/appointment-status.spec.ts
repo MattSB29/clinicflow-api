@@ -1,7 +1,5 @@
-// test/domain/appointment-status.spec.ts
 import { describe, expect, it } from 'vitest';
 
-// Regra de domínio pura
 function canUpdateAppointmentStatus(currentStatus: 'PENDING' | 'TRIAGED' | 'CANCELLED', newStatus: 'PENDING' | 'TRIAGED' | 'CANCELLED'): boolean {
   if (currentStatus === 'CANCELLED') {
     return false; // Atendimentos cancelados não podem ser alterados
