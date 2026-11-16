@@ -29,6 +29,7 @@ export default defineConfig({
         'k6/**',
         'src/utils/*.ts',
         'tests/**',
+        'src/middlewares/**'
       ],
     }
   },
