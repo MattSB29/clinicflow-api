@@ -1,6 +1,7 @@
 import { Appointment } from '../models/Appointment';
 import { IAppointmentRepository } from '../repositories/IAppointmentRepository';
 import { ITriageStrategy } from './TriagePriorityStrategy';
+import { logger } from '../utils/logger';
 
 interface RequestDTO {
   patientName: string;
@@ -25,6 +26,13 @@ export class CreateAppointmentService {
       createdAt: new Date(),
     };
 
-    return await this.appointmentRepository.save(appointment);
+    const savedAppointment = await this.appointmentRepository.save(appointment);
+
+    logger.info(
+      { appointmentId: savedAppointment.id, priorityScore },
+      'Novo agendamento criado e triado com sucesso'
+    );
+
+    return savedAppointment;
   }
 }
